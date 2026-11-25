@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINELIST</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="inicio">
+        <h1 class="TituloSite">CINELIST</h1>
+        <p class="SubtituloSite">Chega de esquecer onde assistir. Encontre e favorite AQUI!</p>
+    </div>
+
+    <div class="busca">
+        <h2>Encontre seu filme</h2>
+    
+    <div class="busca-campos">
+        <input type="text" placeholder="Digite o nome do filme" id="searchInput" v-model = "nomeDigitado" @keyup.enter = "buscarFilme">
+        <button id="searchButton" @click="buscarFilme">BUSCAR</button>
+    
+    <div id="resultados">
+        <p v-if="jaBuscou && resultados.length === 0">Nenhum filme encontrado</p>
+    <div class="card" v-for="filme in resultados" :key="filme.id">
+        <img :src="filme.poster" :alt="'Pôster de' + filme.nome">
+    
+    <div class="info">
+        <h3>{{ filme.nome }}</h3>
+        <p>Ano: {{filme.ano}}</p>
+        <p>Diretor: {{filme.diretor}}</p>
+        <p>Onde assistir: {{filme.streaming}}</p>
+        <button @click="favoritar(filme)">{{ estaNosFavoritos(filme.id) ? "Já está nos favoritos" : "Adicionar aos favoritos" }}</button>
+    
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    <div class="lista" id="ListaDeFilmes">
+        <h2>Minha lista de favoritos</h2>
+        <p v-if="favoritos.lenght === 0">Você ainda não favoritou nenhum filme</p>
+    
+    <div class="card" v-for="fav in favoritos" :key="fav.id">
+        <img :src="fav.poster" :alt="'Pôster de ' + fav.nome">
+    
+    <div class="info">
+        <h3>{{fav.nome}}</h3>
+
+    <div v-if="!fav.editando">
+        <p>Ano: {{fav.ano}}</p>
+        <p>Diretor: {{fav.diretor}}</p>
+        <p>Onde assistir: {{fav.streaming}}</p>
+        <button @click="fav.editando = true">Editar</button>
+        <button @click="removerFavorito(fav.id)">Remover</button>
+    </div>
+
+    <div v-else>
+        <label>Ano:</label>
+        <input type="number" v-model="fav.ano">
+        <label>Diretor:</label>
+        <input type="text" v-model="fav.diretor">
+        <label>streaming:</label>
+        <input type="text" v-model="fav.streaming">
+        <button @click="fav.editando = false">Salvar</button>
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+</div>
+  
+ 
+ <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+ <script src="app.js"></script>
+
+</body>
+
+</html>

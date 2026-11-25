@@ -1,0 +1,284 @@
+/* ==========================================================
+   CINELIST - style.css
+   Tema: sala de cinema (fundo escuro vinho/azulado + dourado)
+   ========================================================== */
+
+/* ---------- Variáveis ---------- */
+:root {
+    --fundo: #1a1522;
+    --superficie: #261e31;
+    --superficie-2: #322842;
+    --borda: #4a3d5e;
+    --texto: #f4eff8;
+    --texto-suave: #b9aecb;
+    --destaque: #f2b134;
+    --destaque-hover: #ffc75a;
+    --perigo: #ff8a80;
+
+    --raio: 10px;
+    --espaco: 1rem;
+    --fonte: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    --fonte-titulo: Georgia, "Times New Roman", serif;
+}
+
+/* ---------- Reset básico ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fonte);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--fundo);
+}
+
+#app {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ---------- Cabeçalho ---------- */
+.inicio {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+}
+
+.TituloSite {
+    margin: 0;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--destaque);
+}
+
+.SubtituloSite {
+    margin: 0.5rem auto 0;
+    max-width: 45ch;
+    font-size: 1.1rem;
+    color: var(--texto-suave);
+}
+
+/* ---------- Títulos de seção ---------- */
+.busca h2,
+.lista h2 {
+    margin: 0 0 1rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.busca,
+.lista {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+}
+
+/* ---------- Campo de busca ---------- */
+.busca-campos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+#searchInput {
+    flex: 1 1 240px;
+    min-width: 0;
+}
+
+#resultados {
+    flex-basis: 100%;
+}
+
+/* ---------- Inputs e labels ---------- */
+input[type="text"],
+input[type="number"] {
+    padding: 0.7rem 0.9rem;
+    font: inherit;
+    color: var(--texto);
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+}
+
+input::placeholder {
+    color: var(--texto-suave);
+}
+
+label {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+}
+
+label + input {
+    width: 100%;
+    margin-top: 0.2rem;
+}
+
+/* ---------- Botões ---------- */
+button {
+    padding: 0.7rem 1.2rem;
+    font: inherit;
+    font-weight: 600;
+    color: #1a1522;
+    background-color: var(--destaque);
+    border: 2px solid var(--destaque);
+    border-radius: var(--raio);
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+button:hover {
+    background-color: var(--destaque-hover);
+    border-color: var(--destaque-hover);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Botões dentro dos cards: menores e discretos */
+.info button {
+    margin: 0.5rem 0.5rem 0 0;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.9rem;
+}
+
+/* Botão "Remover" (segundo botão da lista de favoritos) */
+.lista .info button:nth-of-type(2) {
+    color: var(--perigo);
+    background-color: transparent;
+    border-color: var(--perigo);
+}
+
+.lista .info button:nth-of-type(2):hover {
+    color: #1a1522;
+    background-color: var(--perigo);
+}
+
+/* ---------- Acessibilidade: foco visível ---------- */
+:focus-visible {
+    outline: 3px solid var(--destaque-hover);
+    outline-offset: 2px;
+}
+
+input:focus-visible {
+    outline-offset: 0;
+    border-color: var(--destaque);
+}
+
+/* ---------- Mensagens vazias ---------- */
+#resultados > p,
+.lista > p {
+    margin: 0.5rem 0;
+    padding: 0.8rem 1rem;
+    color: var(--texto-suave);
+    background-color: var(--superficie-2);
+    border-radius: var(--raio);
+}
+
+/* ---------- Grades de cards ---------- */
+#resultados,
+.lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+/* Títulos e mensagens ocupam a linha inteira */
+.lista > h2,
+.lista > p,
+#resultados > p {
+    grid-column: 1 / -1;
+}
+
+/* Dentro do .busca-campos, #resultados precisa continuar em grade */
+.busca-campos #resultados {
+    margin-top: 0.5rem;
+}
+
+/* ---------- Card de filme ---------- */
+.card {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--superficie-2);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+}
+
+.card img {
+    flex-shrink: 0;
+    width: 110px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    background-color: var(--fundo);
+    border-radius: 6px;
+}
+
+.info {
+    flex: 1;
+    min-width: 0;
+}
+
+.info h3 {
+    margin: 0 0 0.4rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.25rem;
+    line-height: 1.3;
+}
+
+.info p {
+    margin: 0.15rem 0;
+    font-size: 0.95rem;
+    color: var(--texto-suave);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 480px) {
+    #app {
+        padding: 1rem 0.75rem 3rem;
+    }
+
+    .busca,
+    .lista {
+        padding: 1rem;
+    }
+
+    #resultados,
+    .lista {
+        grid-template-columns: 1fr;
+    }
+
+    .card img {
+        width: 90px;
+    }
+
+    #searchButton {
+        width: 100%;
+    }
+}
+
+/* ---------- Respeita quem prefere menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
